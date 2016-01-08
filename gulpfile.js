@@ -10,7 +10,7 @@ gulp.task('html2js', function () {
   return gulp.src(['./src/*.html'])
     .pipe(minifyHtml())
     .pipe(ngHtml2Js({
-      moduleName: "ionic-timepicker.templates"
+      moduleName: "ionic-floatpicker.templates"
     }))
     .pipe(concat("templates.js"))
     //.pipe(uglify())
@@ -26,13 +26,13 @@ gulp.task('css2js', function () {
 
 gulp.task('make-bundle', ['del', 'html2js', 'css2js'], function () {
   return gulp.src(['dist/*', './src/*.js'])
-    .pipe(concat('ionic-timepicker.bundle.min.js'))
+    .pipe(concat('ionic-floatpicker.bundle.min.js'))
     .pipe(uglify())
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('del-temp-files', ['make-bundle'], function () {
-  del(['dist/templates.js', 'dist/ionic-timepicker.styles.js']);
+  del(['dist/templates.js', 'dist/ionic-floatpicker.styles.js']);
 });
 
 gulp.task('del', function () {

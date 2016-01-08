@@ -1,22 +1,22 @@
 {
-  "name": "ionic-timepicker",
-  "version": "0.4.0",
+  "name": "ionic-floatpicker",
+  "version": "0.1.0",
   "authors": [
-    "rajeshwarpatlolla <rajeshwar.patlolla@gmail.com>"
+    "petruisfan <petru.isfan@gmail.com>"
   ],
-  "description": "A timepicker component for Ionic framework",
+  "description": "A floatpicker component for Ionic framework",
   "main": [
-    "./dist/ionic-timepicker.bundle.min.js"
+    "./dist/ionic-floatpicker.bundle.min.js"
   ],
   "keywords": [
-    "ionic-timepicker",
+    "ionic-floatpicker",
     "ionic",
-    "time picker",
-    "time picker for ionic",
-    "time picker for ionic framework"
+    "float picker",
+    "float picker for ionic",
+    "float picker for ionic framework"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/rajeshwarpatlolla",
+  "homepage": "https://github.com/petruisfan",
   "ignore": [
     "**/.*",
     "node_modules",
