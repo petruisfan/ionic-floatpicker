@@ -2,7 +2,8 @@
 ##Introduction:
 
 This is a `ionic-floatpicker` bower component which can be used with any Ionic framework's application.
-
+It is based on the ionic timepicker project:
+https://github.com/rajeshwarpatlolla/ionic-timepicker
 
 ##Prerequisites.
 
