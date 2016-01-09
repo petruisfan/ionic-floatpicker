@@ -21,17 +21,40 @@
                 //
                 scope.inputIndex = scope.inputObj.inputIndex ? scope.inputObj.inputIndex : 0.00;
                 scope.stepInt = scope.inputObj.stepInt ? scope.inputObj.stepInt : 1;
-                scope.stepFloat = scope.inputObj.stepFloat ? scope.inputObj.stepFloat : 1;
+                scope.stepFloat = scope.inputObj.stepFloat ? scope.inputObj.stepFloat : 0.01;
                 scope.maxInt = scope.inputObj.maxInt ? scope.inputObj.maxInt : 99999;       // max integer value
-                scope.maxFloat = scope.inputObj.maxFloat ? scope.inputObj.maxFloat : 99;    // max floating value
-                
+
                 scope.titleLabel = scope.inputObj.titleLabel ? scope.inputObj.titleLabel : 'Float Picker';
                 scope.setLabel = scope.inputObj.setLabel ? scope.inputObj.setLabel : 'Set';
                 scope.closeLabel = scope.inputObj.closeLabel ? scope.inputObj.closeLabel : 'Close';
                 scope.setButtonType = scope.inputObj.setButtonType ? scope.inputObj.setButtonType : 'button-positive';
                 scope.closeButtonType = scope.inputObj.closeButtonType ? scope.inputObj.closeButtonType : 'button-stable';
 
-                scope.number = {int: scope.inputIndex / 1, float: scope.inputIndex % 1 };
+                //
+                // Some sanity checks
+                //
+                if (scope.stepFloat >= 1 || scope.stepFloat <= 0 ) {
+                    throw new Error("stepFloat must be a number between 0 and 1" );
+                }
+                var floatDecimals = scope.stepFloat.toString().split(".")[1].length;
+                /**
+                 * Returned a fixed decimal number, based on number of decimals from increment
+                 */
+                var getFloatFromNumber = function(number) {
+                    return +(number - Math.floor(number)).toFixed(floatDecimals);
+                };
+                /**
+                 * Return a string representation of the decimal, without 0.
+                 */
+                var getFloatLabel = function(number) {
+                    return number.toString().split(".")[1].slice(0, floatDecimals);
+                };
+
+                scope.number = {
+                    int: Math.trunc( scope.inputIndex ),
+                    float: getFloatFromNumber(scope.inputIndex),
+                    floatLabel: getFloatLabel(scope.inputIndex)
+                };
 
                 /**
                  * Increasing the int
@@ -43,7 +66,6 @@
                         scope.number.int = 0;
                     }                    
                 };
-
                 /**
                  * Decreasing the int
                  */
@@ -54,29 +76,31 @@
                         scope.number.int = scope.maxInt;
                     }
                 };
-
                 /**
                  * Increasing the float
                  */
                 scope.increaseFloat = function () {
-                    if (scope.number.float != scope.maxFloat) {
-                        scope.number.float += scope.inputObj.stepFloat;
+                    var sum = scope.number.float + scope.stepFloat;
+                    if ( sum < 1) {
+                        scope.number.float += scope.stepFloat;
                     } else {
-                        scope.number.float = 0;
+                        scope.number.float = getFloatFromNumber(sum);
                     }
+                    scope.number.floatLabel = getFloatLabel(scope.number.float);
                 };
-
                 /**
                  * Decreasing the float
                  */
                 scope.decreaseFloat = function () {
-                    if (scope.number.float > 0) {
+                    var dif = scope.number.float - scope.stepFloat;
+
+                    if (dif > 0) {
                         scope.number.float -= scope.stepFloat;
                     } else {
-                        scope.number.float = scope.maxFloat;
+                        scope.number.float = getFloatFromNumber(dif);
                     }
+                    scope.number.floatLabel = getFloatLabel(scope.number.float);
                 };
-
                 /**
                  * onclick of the button
                  */
@@ -92,8 +116,7 @@
                                 onTap: function (e) {
                                     scope.inputObj.callback(undefined);
                                 }
-                            },
-                            {
+                            }, {
                                 text: scope.setLabel,
                                 type: scope.setButtonType,
                                 onTap: function (e) {

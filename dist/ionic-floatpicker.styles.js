@@ -12,9 +12,7 @@
             styleEl.innerText = cssText;
         }
     }
-}(document, "/* Empty. Add your own CSS if you like */\n" +
-"\n" +
-".timePickerColon {\n" +
+}(document, ".timePickerColon {\n" +
 "  padding-top: 40px;\n" +
 "  text-align: center;\n" +
 "  font-weight: bold;\n" +
