@@ -80,9 +80,9 @@
                  * Increasing the float
                  */
                 scope.increaseFloat = function () {
-                    var sum = scope.number.float + scope.stepFloat;
+                    var sum = +scope.number.float + +scope.stepFloat;
                     if ( sum < 1) {
-                        scope.number.float += scope.stepFloat;
+                        scope.number.float = sum.toFixed(floatDecimals) ;
                     } else {
                         scope.number.float = getFloatFromNumber(sum);
                     }
@@ -92,10 +92,10 @@
                  * Decreasing the float
                  */
                 scope.decreaseFloat = function () {
-                    var dif = scope.number.float - scope.stepFloat;
+                    var dif = +scope.number.float - +scope.stepFloat;
 
                     if (dif > 0) {
-                        scope.number.float -= scope.stepFloat;
+                        scope.number.float = dif.toFixed(floatDecimals) ;
                     } else {
                         scope.number.float = getFloatFromNumber(dif);
                     }
@@ -120,7 +120,9 @@
                                 text: scope.setLabel,
                                 type: scope.setButtonType,
                                 onTap: function (e) {
-                                    var result = parseFloat(scope.number.int + "." + scope.number.float);
+                                    var decimals = (''+scope.number.float).split(".")[1];
+
+                                    var result = parseFloat(scope.number.int + "." + decimals );
                                     scope.inputObj.callback(result);
                                 }
                             }
