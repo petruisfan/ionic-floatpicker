@@ -102,6 +102,12 @@
                     scope.number.floatLabel = getFloatLabel(scope.number.float);
                 };
                 /**
+                 *
+                 */
+                scope.setFloat = function() {
+                    scope.number.float = "0." + scope.number.floatLabel;
+                };
+                /**
                  * onclick of the button
                  */
                 element.on("click", function () {
